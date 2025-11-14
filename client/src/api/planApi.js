@@ -1,18 +1,16 @@
 import axios from "axios";
+import { BASE_URL } from "./api";
 
-const API_URL = import.meta.env.VITE_API_URL + "/api/plans" || (import.meta.env.DEV ? "http://localhost:5000" : "");
+const API_URL = `${BASE_URL}/api/plans`;
 
-// Get all plans
 export const getPlans = async () => {
   const response = await axios.get(API_URL);
   return response.data;
 };
 
-// Create a plan (admin only)
 export const createPlan = async (planData, token) => {
-  const config = {
-    headers: { Authorization: `Bearer ${token}` },
-  };
-  const response = await axios.post(API_URL, planData, config);
+  const response = await axios.post(API_URL, planData, {
+    headers: { Authorization: `Bearer ${token}` }
+  });
   return response.data;
 };
