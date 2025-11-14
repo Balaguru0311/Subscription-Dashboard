@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../features/authSlice.js";
 import { useNavigate } from "react-router-dom";
+import { BASE_URL } from "../api/api.js";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -23,7 +24,7 @@ const Login = () => {
         console.log("token:",token);
         if (!token) return;
 
-        const res = await fetch("http://localhost:5000/api/subscriptions/my-subscription", {
+        const res = await fetch(`${BASE_URL}/api/subscriptions/my-subscription`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();
